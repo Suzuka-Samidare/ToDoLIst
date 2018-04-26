@@ -7,29 +7,39 @@
     <title>ToDoList prototype</title>
     <link rel="stylesheet" type="text/css "href="ToDo.css">
 </head>
-<body>
-    <h1>ToDoList</h1>
+<body>  
+      
+    <div id="modal-wid">
+        <input id="req-inp" type="text">
+        <div id="time-limit">
+            <p><input id="lim-check" type="radio" name="TL">期限</p>
+            <p><input id="lim-check" type="radio" name="TL">予定</p>
+        </div>
+        <button id="add-btn">決定</button>
+        <button id="cancel-btn">キャンセル</button>
+    </div>
+    
+    <div id="modal-bg"></div>
+        
 
+<!-- main contents -->
     <div id="main">
+
+        <h1>ToDoList</h1>
+
         <div id="main-btn">
             <button id="ToDo-btn">Add</button>
             <button id="all-del-btn">All Delete</button>
         </div>
 
-        <div id="modal-wid">
-            <input id="req-inp" type="text">
-            <div id="time-limit">
-                <p><input id="lim-check" type="radio" name="TL">期限</p>
-                <p><input id="lim-check" type="radio" name="TL">予定</p>
-            </div>
-            <button id="add-btn">決定</button>
-            <button id="cancel-btn">キャンセル</button>
-        </div><!-- modal-wid -->
-
         <div id="todo-list"></div>
-    </div>
 
+    </div>
+<!-- /main contents -->
+
+    
     <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="ToDo.js"></script>    
+
 </body>
 </html>
