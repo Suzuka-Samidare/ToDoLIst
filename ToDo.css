@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    list-style: none;
+}
+
+li {
+}
+
+
+h1 {
+    text-align: center;
+    color: white;
+    background: rgb(238, 148, 163);
+}
+
+#main {
+    width: auto;
+    background: rgb(255, 213, 220)
+}
+
+#main-btn {
+    padding: 20px;
+}
+
+#ToDo-btn {
+    width: 120px;
+    height: 100px;
+    font-size: 20px;
+    border-radius: 50px 3px;
+    /* border: 1px dotted orangered; */
+    background: rgb(238, 148, 163);
+    text-decoration: none;
+    outline: none;
+}
+
+#all-del-btn {
+    width: 120px;
+    height: 100px;
+    font-size: 20px;
+    border-radius: 50px 3px;
+    /* border: 1px dotted orangered; */
+    background: rgb(238, 148, 163);
+    text-decoration: none;
+    outline: none;
+}
+
+#modal-wid {
+    margin: 20px;
+    padding: 10px;
+    background: white;
+    border: 1px solid rgb(226, 102, 123)
+}
