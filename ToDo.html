@@ -10,8 +10,12 @@
 <body>  
       
     <div id="modal-wid">
+        <h1 class="modal-title">What to do ?</h1>
+        <p>登録したい内容は何？</p>
         <input id="req-inp" type="text">
+        <p>何時にどうなる？</p>
         <div id="time-limit">
+            <p><input id="year-inp" class="DATE-inp">年<input id="month-inp" class="DATE-inp">月<input id="date-inp" class="DATE-inp">日<input id="hour-inp" class="DATE-inp">時<input id="min-inp" class="DATE-inp">分</p>
             <p><input id="lim-check" type="radio" name="TL">期限</p>
             <p><input id="lim-check" type="radio" name="TL">予定</p>
         </div>
@@ -25,7 +29,7 @@
 <!-- main contents -->
     <div id="main">
 
-        <h1>ToDoList</h1>
+        <h1 class="main-title">ToDoList</h1>
 
         <div id="main-btn">
             <button id="ToDo-btn">Add</button>
