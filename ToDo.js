@@ -3,8 +3,7 @@ $(function () {
     // ToDoリストの追加先
     const outputEl = $('#todo-list');
 
-    // モーダル内要素取得 -------------------------------
-
+    // モーダル内要素取得 --------------------------------------------------------------
     // windowオブジェクト取得
     const $window = $(window);
     // addするToDoの内容が書かれているところ
@@ -17,12 +16,65 @@ $(function () {
     const modalBg = $('#modal-bg');
     // モーダルウィンドウのキャンセルボタン要素の取得
     const modalCancel = $('#cancel-btn');
-
-    // -----------------------------------------------
+    // ------------------------------------------------------------------------------
 
     // ToDoリストカラーパレットと配列監視
     let colorPalette = ['mistyrose', 'pink', 'lightpink', 'darksalmon', 'coral'];
     let colorNum = 0;
+
+    // jsonフェイズ-------------------------------------------------------------------------
+    let allList = [];
+
+    // if (allList !== null) {
+    //     allList = [
+    //         {time: 'fuge', name: 'hoga', radio: 'munya'}
+    //     ]
+    //     // ローカルストレージに保存
+    //     let json = JSON.stringify(allList);
+    //     localStorage.setItem('allList', json);
+    // }
+    
+    
+    // if (allList !== undefined) {
+    let json = localStorage.getItem('allList'); 
+    json = JSON.parse(json);
+    if (json) {
+        allList = json;
+    }
+    
+    // if (allList) {
+        for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
+            console.log(allList);
+            
+            const divAdd = $('<div class="ToDo-content">');
+            divAdd.html(`${allList[cnt].time}追加<br>${allList[cnt].name}<br>${allList[cnt].radio}`);
+            divAdd.css({ background: colorPalette[colorNum] });
+    
+            // divリスト内に削除ボタン設置
+            const divDelAdd = $('<button class="ToDo-content-btn">');
+            divDelAdd.text('Delete');
+            divDelAdd.on('click', () => {
+                divDelAdd.parent().remove();
+            });
+            // divリスト内に削色変更ボタン設置
+            const divCCAdd = $('<button class="ToDo-content-btn">');
+            divCCAdd.text('ColorChange');
+            divCCAdd.on('click', () => {
+                divCCAdd.parent().css({ background: colorPalette[colorNum] });
+                bgc();
+            });
+    
+            // 追加の動き
+            outputEl.append(divAdd);
+            // リスト要素内に削除ボタン作成
+            divAdd.append(divDelAdd);
+            // リスト要素内に色変更ボタン作成
+            divAdd.append(divCCAdd);
+        }
+    // }
+    // }
+    
+
 
     // Addボタンクリック時 -------------------------------------------------------------------
     $('#ToDo-btn').on('click', () => {
@@ -46,6 +98,7 @@ $(function () {
         });
 
     }); //--------------------------------------------------------------------------------
+
 
     // 追加ボタンを押した場合 -------------------------------------------------------------------
     $('#add-btn').on('click', () => {
@@ -103,18 +156,43 @@ $(function () {
             // リスト要素内に色変更ボタン作成
             divAdd.append(divCCAdd);
 
+
+            // let allList = [
+            //     {name: reqName}
+            // ]
+            // let allList = [];
+
+            let addObj = {
+                time: nowTime,
+                name: reqName,
+                radio: radioEl
+            }
+
+            
+            console.log(allList, addObj);
+            allList.push(addObj)
+
+
+            
+            // ローカルストレージに保存
+            let json = JSON.stringify(allList);
+            localStorage.setItem('allList', json);
+
+
+
             requireEl.val('');
 
             bgc();
+        
         }
-
     }); //--------------------------------------------------------------------------------
 
-    // 
+    // 全消去
     $('#all-del-btn').on('click', () => {
         console.log('all delete');
         outputEl.empty();
     }); //--------------------------------------------------------------------------------
+
 
 
 
@@ -140,6 +218,14 @@ $(function () {
         }
     } //--------------------------------------------------------------------------------
 
+});
+
+
+
+
+
+
+
     // function listOperation() { //-------------------------------------------------------
     //     // divリスト内に削除ボタン設置
     //     const divDelAdd = $('<button>');
@@ -163,30 +249,38 @@ $(function () {
     //     divAdd.append(divCCAdd);
     // } //---------------------------------------------------------------------------------
 
-    function gTime() { //-----------------------------------------------------------------
-        // 日時
-        const now = new Date();
-        // 年
-        const year = now.getFullYear();
-        console.log(year);
-        // 月
-        const month = now.getMonth() + 1;
-        console.log(month);
-        // 日
-        const date = now.getDate();
-        console.log(date);
-        // 曜日
-        const day = now.getDay();
-        const weekList = ['sun','月','火','','','',''];
-        // console.log(weekList[day]);
-        // 時
-        const hour = now.getHours();
-        // console.log(hour);
-        // 分
-        const min = now.getMinutes();
-        // 秒
-        const sec = now.getSeconds();
+//     function gTime() { //-----------------------------------------------------------------
+//         // 日時
+//         const now = new Date();
+//         // 年
+//         const year = now.getFullYear();
+//         console.log(year);
+//         // 月
+//         const month = now.getMonth() + 1;
+//         console.log(month);
+//         // 日
+//         const date = now.getDate();
+//         console.log(date);
+//         // 曜日
+//         const day = now.getDay();
+//         const weekList = ['sun','月','火','','','',''];
+//         // console.log(weekList[day]);
+//         // 時
+//         const hour = now.getHours();
+//         // console.log(hour);
+//         // 分
+//         const min = now.getMinutes();
+//         // 秒
+//         const sec = now.getSeconds();
 
-        console.log(`${year}年${month}月${date}日 ${hour}時${min}分${sec}秒`);   
-    }
-}); //----------------------------------------------------------------------------------------
+//         console.log(`${year}年${month}月${date}日 ${hour}時${min}分${sec}秒`);   
+//     }
+// }); //---------------------------------------------------------------------------------------
+
+// let allList = [
+//         { name : reqName }
+// ]
+
+// // ローカルストレージに保存
+// let json = JSON.stringify(allList);
+// localStorage.setItem('allList', json);
