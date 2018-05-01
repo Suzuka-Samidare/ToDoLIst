@@ -115,6 +115,10 @@ h1 {
     border-radius: 20px;
 }
 
-.ToDo-content-btn {
+.ToDo-content-del {
+    text-align: center;
+}
+
+.ToDo-content-cc {
     text-align: center;
 }
