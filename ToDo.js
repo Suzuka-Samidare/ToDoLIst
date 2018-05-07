@@ -3,6 +3,7 @@ $(function () {
     // ToDoリストの追加先
     const outputEl = $('#todo-list');
 
+
     // モーダル内要素取得 --------------------------------------------------------------
     // windowオブジェクト取得
     const $window = $(window);
@@ -38,7 +39,7 @@ $(function () {
         console.log(allList);
         
         const divAdd = $('<div class="ToDo-content">');
-        divAdd.html(`<p class="c-time-${loadCnt}">追加日：${allList[cnt].time}</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}</p>`);
+        divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${allList[cnt].nTime} 追加</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}：${allList[cnt].rDate} ${allList[cnt].rTime}</p>`);
         divAdd.css({ background: colorPalette[colorNum] });
 
         // divリスト内に削除ボタン設置
@@ -46,12 +47,12 @@ $(function () {
         divDelAdd.text('Delete');
         divDelAdd.on('click', () => {
             // 押された削除ボタンの同階層のpタグテキストの入手
-            let delTime = divDelAdd.prev().prev().prev().text().substr(4);
+            // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
             let delName = divDelAdd.prev().prev().text();
-            let delRadio = divDelAdd.prev().text();
-            let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
+            // let delRadio = divDelAdd.prev().text();
+            // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
 
-            var arraySearch = allList.findIndex(({time}) => time === delTime);
+            var arraySearch = allList.findIndex(({name}) => name === delName);
             console.log(arraySearch);
             allList.splice(arraySearch, 1);
             console.log(allList);
@@ -60,7 +61,6 @@ $(function () {
             // ローカルストレージに保存
             json = JSON.stringify(allList);
             localStorage.setItem('allList', json);
-            
 
         });
         // divリスト内に削色変更ボタン設置
@@ -106,6 +106,14 @@ $(function () {
             modalBg.fadeOut('slow');
         });
 
+        let now = new Date();
+        let year = now.getFullYear(); // 年
+        let month = ('0'+(now.getMonth() + 1)).slice(-2); // 月
+        let date = ('0'+now.getDate()).slice(-2); // 日
+        let nowDate = `${year}-${month}-${date}`;
+        $('#date-inp').val(nowDate);
+
+
     }); //--------------------------------------------------------------------------------
 
 
@@ -116,38 +124,53 @@ $(function () {
         let reqName = requireEl.val();
         // 選択されているradioボタン要素の取得、項目の取得
         let radioEl = $("input[name='TL']:checked").parent().text();
+        // 期限日付の取得
+        let inpDate = $('#date-inp').val().split('-');
+        let dateEl = `${inpDate[0]}年${inpDate[1]}月${inpDate[2]}`
+        // 期限時間の取得
+        let inpTime = $('#time-inp').val().split(':');
+        let timeEl = `${inpTime[0]}時${inpTime[1]}分`
+        console.log(timeEl);
 
         // 時間の取得
-        const now = new Date();
-        const year = now.getFullYear(); // 年
-        const month = now.getMonth() + 1; // 月
-        const date = now.getDate(); // 日
+        let now = new Date();
+        let year = now.getFullYear(); // 年
+        let month = ('0'+(now.getMonth() + 1)).slice(-2); // 月
+        let date = ('0'+now.getDate()).slice(-2); // 日
         // const day = now.getDay(); // 曜日
         const weekList = ['日','月','火','水','木','金','土'];
         const hour = now.getHours(); // 時
         const min = now.getMinutes(); // 分
         const sec = now.getSeconds(); // 秒
         let nowTime = `${year}年${month}月${date}日 ${hour}時${min}分`; //${sec}秒`; 
-        // time-limit内のinput取得
-        const yearInp = $('#year-inp').val();
-        const monthInp = $('#month-inp').val();
-        const dateInp = $('#date-inp').val();
-        const hourInp = $('#hour-inp').val();
-        const minInp = $('#min-inp').val();
-        let setLimit = `${yearInp}年${monthInp}月${dateInp}日${hourInp}時${minInp}分`;
 
         // inputとradioが入っていれば実行
-        if (reqName !== '' & radioEl !== '') {
+        if (reqName !== '' & radioEl !== '' & dateEl !== '' & timeEl !== '') {
             // divタグでリストを作成
             const divAdd = $('<div class="ToDo-content">');
-            divAdd.html(`<p class="c-time-${loadCnt}">${nowTime}追加</p><p class="c-name-${loadCnt}">${reqName}</p><p class="c-radio-${loadCnt}">${radioEl}</p>`);
+            divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${nowTime} 追加</p><p class="c-name-${loadCnt}">${reqName}</p><p class="c-radio-${loadCnt}">${radioEl}：${dateEl} ${timeEl}</p>`);
             divAdd.css({ background: colorPalette[colorNum] });
 
             // divリスト内に削除ボタン設置
             const divDelAdd = $('<button class="ToDo-content-del">');
             divDelAdd.text('Delete');
-            divDelAdd.on('click', () => {
+            divDelAdd.on('click', () => {            
+                // 押された削除ボタンの同階層のpタグテキストの入手
+                // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
+                let delName = divDelAdd.prev().prev().text();
+                // let delRadio = divDelAdd.prev().text();
+                // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
+    
+                var arraySearch = allList.findIndex(({name}) => name === delName);
+                console.log(arraySearch);
+                allList.splice(arraySearch, 1);
+                console.log(allList);
                 divDelAdd.parent().remove();
+    
+                // ローカルストレージに保存
+                json = JSON.stringify(allList);
+                localStorage.setItem('allList', json);
+    
             });
             // divリスト内に削色変更ボタン設置
             const divCCAdd = $('<button class="ToDo-content-cc">');
@@ -167,9 +190,12 @@ $(function () {
 
 
             let addObj = {
-                time: nowTime,
+                nTime: nowTime,
                 name: reqName,
-                radio: radioEl
+                radio: radioEl,
+                rDate: dateEl,
+                rTime: timeEl 
+                
             }
 
             
@@ -182,9 +208,18 @@ $(function () {
             json = JSON.stringify(allList);
             localStorage.setItem('allList', json);
 
+            $('#alert-wid').fadeIn('slow');
+
+            var syori = function syori() {
+                $('#alert-wid').fadeOut('slow');
+            }
+            setTimeout(syori, 2000);
+
+
 
 
             requireEl.val('');
+            $('#time-inp').val('');
 
             bgc();
         
@@ -193,15 +228,68 @@ $(function () {
 
 
 
-    // 全消去
-    $('#all-del-btn').on('click', () => {
-        console.log('all delete');
+    // フィルター
+    $('#limit-filter-btn').on('click', () => {
         outputEl.empty();
+        for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
+            console.log(allList);
+            if (allList[cnt].radio === '予定') {
+                const divAdd = $('<div class="ToDo-content">');
+                divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${allList[cnt].nTime} 追加</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}：${allList[cnt].rDate} ${allList[cnt].rTime}</p>`);
+                divAdd.css({ background: colorPalette[colorNum] });
+        
+                // divリスト内に削除ボタン設置
+                const divDelAdd = $('<button class="ToDo-content-del">');
+                divDelAdd.text('Delete');
+                divDelAdd.on('click', () => {
+                    // 押された削除ボタンの同階層のpタグテキストの入手
+                    // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
+                    let delName = divDelAdd.prev().prev().text();
+                    // let delRadio = divDelAdd.prev().text();
+                    // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
+        
+                    var arraySearch = allList.findIndex(({name}) => name === delName);
+                    console.log(arraySearch);
+                    allList.splice(arraySearch, 1);
+                    console.log(allList);
+                    divDelAdd.parent().remove();
+
+                    // ローカルストレージに保存
+                    json = JSON.stringify(allList);
+                    localStorage.setItem('allList', json);
+
+            
+                });
+                // divリスト内に削色変更ボタン設置
+                const divCCAdd = $('<button class="ToDo-content-cc">');
+                divCCAdd.text('ColorChange');
+                divCCAdd.on('click', () => {
+                    divCCAdd.parent().css({ background: colorPalette[colorNum] });
+                    bgc();
+                });
+        
+                // 追加の動き
+                outputEl.append(divAdd);
+                // リスト要素内に削除ボタン作成
+                divAdd.append(divDelAdd);
+                // リスト要素内に色変更ボタン作成
+                divAdd.append(divCCAdd);
+        
+                bgc();
+        
+                loadCnt += 1;
+            } else {
+                loadCnt += 1;
+            }
+        }
+    
     }); //--------------------------------------------------------------------------------
 
 
 
 
+
+    
 
 
     // モーダルウィンドウを中央に配置する
@@ -225,68 +313,3 @@ $(function () {
     } //--------------------------------------------------------------------------------
 
 });
-
-
-
-
-
-
-
-    // function listOperation() { //-------------------------------------------------------
-    //     // divリスト内に削除ボタン設置
-    //     const divDelAdd = $('<button>');
-    //     divDelAdd.text('Delete');
-    //     divDelAdd.on('click', () => {
-    //         divDelAdd.parent().remove();
-    //     });
-    //     // divリスト内に削色変更ボタン設置
-    //     const divCCAdd = $('<button>');
-    //     divCCAdd.text('ColorChange');
-    //     divCCAdd.on('click', () => {
-    //         divCCAdd.parent().css({ background: colorPalette[colorNum] });
-    //         bgc();
-    //     });
-    // } //---------------------------------------------------------------------------------
-
-    // function listAddBtn() { //-----------------------------------------------------------
-    //     // リスト要素内に削除ボタン作成
-    //     divAdd.append(divDelAdd);
-    //     // リスト要素内に色変更ボタン作成
-    //     divAdd.append(divCCAdd);
-    // } //---------------------------------------------------------------------------------
-
-//     function gTime() { //-----------------------------------------------------------------
-//         // 日時
-//         const now = new Date();
-//         // 年
-//         const year = now.getFullYear();
-//         console.log(year);
-//         // 月
-//         const month = now.getMonth() + 1;
-//         console.log(month);
-//         // 日
-//         const date = now.getDate();
-//         console.log(date);
-//         // 曜日
-//         const day = now.getDay();
-//         const weekList = ['sun','月','火','','','',''];
-//         // console.log(weekList[day]);
-//         // 時
-//         const hour = now.getHours();
-//         // console.log(hour);
-//         // 分
-//         const min = now.getMinutes();
-//         // 秒
-//         const sec = now.getSeconds();
-
-//         console.log(`${year}年${month}月${date}日 ${hour}時${min}分${sec}秒`);   
-//     }
-// }); //---------------------------------------------------------------------------------------
-
-// let allList = [
-//         { name : reqName }
-// ]
-
-// // ローカルストレージに保存
-// let json = JSON.stringify(allList);
-// localStorage.setItem('allList', json);
