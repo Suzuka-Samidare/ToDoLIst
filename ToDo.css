@@ -129,6 +129,7 @@ h1 {
 
 #main-btn {
     padding: 20px;
+    text-align: center;
 }
 
 #ToDo-btn {
@@ -169,6 +170,7 @@ h1 {
 #all-filter-btn {
     width: 120px;
     height: 100px;
+    margin: 0 0 0 100px;
     font-size: 20px;
     border-radius: 50px 3px;
     /* border: 1px dotted orangered; */
@@ -202,9 +204,9 @@ h1 {
 }
 
 
-/* #todo-list {
-    width: 50%;
-}  */
+#todo-list {
+    margin: 0 30px;
+} 
 
 /* #todo-list-limit {
     width: 50%;
@@ -213,8 +215,8 @@ h1 {
 
 .ToDo-content {
     display: inline-block;
-    width: 275px;
-    height: 150px;
+    width: 280px;
+    height: 125px;
     margin: 10px;
     padding: 10px;
     border-radius: 20px;
