@@ -278,6 +278,14 @@ h1 {
     right: 125px;
     bottom: 15px;
     outline: none;
+    transition: 0.3s;
+}
+
+.ToDo-content-del:hover {
+    background: rgb(220,220,220);
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+
 }
 
 .ToDo-content-cc {
@@ -288,6 +296,13 @@ h1 {
     right: 15px;
     bottom: 15px;
     outline: none;
+    transition: 0.3s;
+}
+
+.ToDo-content-cc:hover {
+    background: rgb(220,220,220);
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
 }
 
 #c-time {
