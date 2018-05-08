@@ -79,6 +79,41 @@ h1 {
     display: flex;
 }
 
+#add-btn {
+    width: 120px;
+    height: 65px;
+    font-size: 20px;
+    border-radius: 50px 5px;
+    border: 1px solid rgb(235,124,143);
+    background: rgb(238, 148, 163);
+    text-decoration: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+#add-btn:hover {
+    background: rgb(255, 232, 236);
+    color: rgb(238, 148, 163)
+}
+
+#cancel-btn {
+    width: 120px;
+    height: 65px;
+    font-size: 20px;
+    border-radius: 50px 5px;
+    border: 1px solid rgb(235,124,143);
+    background: rgb(238, 148, 163);
+    text-decoration: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+#cancel-btn:hover {
+    background: rgb(255, 232, 236);
+    color: rgb(238, 148, 163)
+}
+
+
 
 
 /* ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
@@ -119,7 +154,7 @@ h1 {
 
 .main-title {
     font-size: 70px;
-    border-bottom: 6px solid rgb(255, 152, 134);
+    border-bottom: 6px solid rgb(255, 162, 154);
 }
 
 #main {
@@ -137,7 +172,7 @@ h1 {
     height: 100px;
     font-size: 20px;
     border-radius: 50px 0;
-    /* border: 1px dotted orangered; */
+    border: 1px solid rgb(235,124,143);
     background: rgb(238, 148, 163);
     text-decoration: none;
     outline: none;
@@ -154,7 +189,7 @@ h1 {
     height: 100px;
     font-size: 20px;
     border-radius: 50px 3px;
-    /* border: 1px dotted orangered; */
+    border: 1px solid rgb(235,124,143);
     background: rgb(238, 148, 163);
     text-decoration: none;
     outline: none;
@@ -173,7 +208,7 @@ h1 {
     margin: 0 0 0 100px;
     font-size: 20px;
     border-radius: 50px 3px;
-    /* border: 1px dotted orangered; */
+    border: 1px solid rgb(235,124,143);
     background: rgb(238, 148, 163);
     text-decoration: none;
     outline: none;
@@ -191,7 +226,7 @@ h1 {
     height: 100px;
     font-size: 20px;
     border-radius: 50px 3px;
-    /* border: 1px dotted orangered; */
+    border: 1px solid rgb(235,124,143);
     background: rgb(238, 148, 163);
     text-decoration: none;
     outline: none;
@@ -220,6 +255,9 @@ h1 {
     margin: 10px;
     padding: 10px;
     border-radius: 20px;
+    border-bottom: 4px solid rgba(50,50,50,0.3);
+    border-left: 1px solid rgba(50,50,50,0.3);
+    border-right: 1px solid rgba(50,50,50,0.3);
     position: relative;
     transition: 0.3s;
 }
