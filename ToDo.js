@@ -3,7 +3,6 @@ $(function () {
     // ToDoリストの追加先
     const outputEl = $('#todo-list');
 
-
     // モーダル内要素取得 --------------------------------------------------------------
     // windowオブジェクト取得
     const $window = $(window);
@@ -19,13 +18,8 @@ $(function () {
     const modalCancel = $('#cancel-btn');
     // ------------------------------------------------------------------------------
 
-    // ToDoリストカラーパレットと配列監視
-    let colorPalette = ['#ff4c4c', '#ff5959', '#ff6666', '#ff7272', '#ff7f7f', '#ff8c8c', '#ff9999', '#ffa5a5', '#ffb2b2', '#ffbfc0', '#ffcccc', '#ffd8d9', '#ffe5e5'];
-    let colorNum = 0;
-
-    let loadCnt = 1;
-
     // jsonフェイズ-------------------------------------------------------------------------
+    // 保存データ格納用配列の用意
     let allList = [];
     // ローカルストレージに保存
     let json = localStorage.getItem('allList'); 
@@ -37,6 +31,12 @@ $(function () {
         return (a.sort > b.sort ? 1 : -1);
     });
     console.log(allList);
+
+    let loadCnt = 1;
+
+    // ToDoリストカラーパレットと配列監視
+    let colorPalette = ['#ff4c4c', '#ff5959', '#ff6666', '#ff7272', '#ff7f7f', '#ff8c8c', '#ff9999', '#ffa5a5', '#ffb2b2', '#ffbfc0', '#ffcccc', '#ffd8d9', '#ffe5e5'];
+    let colorNum = 0;
 
     // ToDo全表示
     contentBuild();
@@ -92,7 +92,7 @@ $(function () {
         let timeEl = `${inpTime[0]}時${inpTime[1]}分`
 
         let debugDate = `${inpDate[0]}-${inpDate[1]}-${inpDate[2]} ${inpTime[0]}:${inpTime[1]}`
-        console.log(debugDate);
+        // console.log(debugDate);
 
         // 時間の取得
         let now = new Date();
@@ -124,9 +124,9 @@ $(function () {
                 // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
     
                 var arraySearch = allList.findIndex(({name}) => name === delName);
-                console.log(arraySearch);
+                // console.log(arraySearch);
                 allList.splice(arraySearch, 1);
-                console.log(allList);
+                // console.log(allList);
                 divDelAdd.parent().remove();
     
                 // ローカルストレージに保存
@@ -142,7 +142,7 @@ $(function () {
                 bgc();
                 let ccName = divCCAdd.prev().prev().prev().text();
                 var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                console.log(ccArraySearch);
+                // console.log(ccArraySearch);
                 let waitObj = {
                     nTime: allList[ccArraySearch].nTime,
                     name: allList[ccArraySearch].name,
@@ -185,7 +185,6 @@ $(function () {
             allList.push(addObj)
 
 
-            
             // ローカルストレージに保存
             json = JSON.stringify(allList);
             localStorage.setItem('allList', json);
@@ -197,11 +196,7 @@ $(function () {
             }
             setTimeout(syori, 2000);
 
-
-
-
             requireEl.val('');
-            // $('#time-inp').val('');
 
             bgc();
         
@@ -214,12 +209,17 @@ $(function () {
     $('#limit-filter-btn').on('click', () => {
         outputEl.empty();
         colorNum = 0;
+        loadCnt = 1;
         for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
-            console.log(allList);
+            // console.log(allList);
+            addColorRgb = Math.floor(153/allList.length)
+            colorVessel = 76+(addColorRgb*loadCnt)
+            colorRgb = `rgb( 255, ${colorVessel}, ${colorVessel} )`
+    
             if (allList[cnt].radio === '期限') {
                 const divAdd = $('<div class="ToDo-content">');
                 divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${allList[cnt].nTime} 追加</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}：${allList[cnt].rDate} ${allList[cnt].rTime}</p>`);
-                divAdd.css({ background: colorPalette[colorNum] });
+                divAdd.css({ background: colorRgb });
                 if (allList[cnt].bgc !== '') {
                     divAdd.css({ background: allList[cnt].bgc }); 
                 }
@@ -235,9 +235,9 @@ $(function () {
                     // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
         
                     var arraySearch = allList.findIndex(({name}) => name === delName);
-                    console.log(arraySearch);
+                    // console.log(arraySearch);
                     allList.splice(arraySearch, 1);
-                    console.log(allList);
+                    // console.log(allList);
                     divDelAdd.parent().remove();
 
                     // ローカルストレージに保存
@@ -254,7 +254,7 @@ $(function () {
                     bgc();
                     let ccName = divCCAdd.prev().prev().prev().text();
                     var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                    console.log(ccArraySearch);
+                    // console.log(ccArraySearch);
                     let waitObj = {
                         nTime: allList[ccArraySearch].nTime,
                         name: allList[ccArraySearch].name,
@@ -291,12 +291,17 @@ $(function () {
     $('#plan-filter-btn').on('click', () => {
         outputEl.empty();
         colorNum = 0;
+        loadCnt = 1;
         for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
-            console.log(allList);
+            // console.log(allList);
+            addColorRgb = Math.floor(153/allList.length)
+            colorVessel = 76+(addColorRgb*loadCnt)
+            colorRgb = `rgb( 255, ${colorVessel}, ${colorVessel} )`
+    
             if (allList[cnt].radio === '予定') {
                 const divAdd = $('<div class="ToDo-content">');
                 divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${allList[cnt].nTime} 追加</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}：${allList[cnt].rDate} ${allList[cnt].rTime}</p>`);
-                divAdd.css({ background: colorPalette[colorNum] });
+                divAdd.css({ background: colorRgb });
                 if (allList[cnt].bgc !== '') {
                     divAdd.css({ background: allList[cnt].bgc }); 
                 }
@@ -312,9 +317,9 @@ $(function () {
                     // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
         
                     var arraySearch = allList.findIndex(({name}) => name === delName);
-                    console.log(arraySearch);
+                    // console.log(arraySearch);
                     allList.splice(arraySearch, 1);
-                    console.log(allList);
+                    // console.log(allList);
                     divDelAdd.parent().remove();
 
                     // ローカルストレージに保存
@@ -331,7 +336,7 @@ $(function () {
                     bgc();
                     let ccName = divCCAdd.prev().prev().prev().text();
                     var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                    console.log(ccArraySearch);
+                    // console.log(ccArraySearch);
                     let waitObj = {
                         nTime: allList[ccArraySearch].nTime,
                         name: allList[ccArraySearch].name,
@@ -368,6 +373,8 @@ $(function () {
 
     // 全表示、フィルター解除
     $('#all-filter-btn').on('click', () => {
+        outputEl.empty();
+        loadCnt = 1;
         contentBuild();
     }); //--------------------------------------------------------------------------------
 
@@ -378,17 +385,19 @@ $(function () {
     function contentBuild() {
         for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
             // console.log(allList);
-            
+            addColorRgb = Math.floor(153/allList.length)
+            colorVessel = 76+(addColorRgb*loadCnt)
+            colorRgb = `rgb( 255, ${colorVessel}, ${colorVessel} )`
+    
             const divAdd = $('<div class="ToDo-content">');
             divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${allList[cnt].nTime} 追加</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}：${allList[cnt].rDate} ${allList[cnt].rTime}</p>`);
-            divAdd.css({ background: colorPalette[colorNum] });
+            divAdd.css({ background: colorRgb });
+            // console.log(colorVessel);
+            // console.log(addColorRgb);
+            // console.log(loadCnt);
             if (allList[cnt].bgc !== '') {
                 divAdd.css({ background: allList[cnt].bgc }); 
             }
-            // else {
-            //     divAdd.css({ background: colorPalette[colorNum] });
-            // }
-
             // divリスト内に削除ボタン設置
             const divDelAdd = $('<button class="ToDo-content-del">');
             divDelAdd.text('Delete');
@@ -397,12 +406,11 @@ $(function () {
                 // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
                 let delName = divDelAdd.prev().prev().text();
                 // let delRadio = divDelAdd.prev().text();
-                // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
 
                 var arraySearch = allList.findIndex(({name}) => name === delName);
-                console.log(arraySearch);
+                // console.log(arraySearch);
                 allList.splice(arraySearch, 1);
-                console.log(allList);
+                // console.log(allList);
                 divDelAdd.parent().remove();
 
                 // ローカルストレージに保存
@@ -418,7 +426,7 @@ $(function () {
                 bgc();
                 let ccName = divCCAdd.prev().prev().prev().text();
                 var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                console.log(ccArraySearch);
+                // console.log(ccArraySearch);
                 let waitObj = {
                     nTime: allList[ccArraySearch].nTime,
                     name: allList[ccArraySearch].name,
