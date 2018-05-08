@@ -72,7 +72,7 @@ $(function () {
         });
 
         // 追加の動き
-        outputEl.append(divAdd);
+        outputEl.append(divAdd).hide().fadeIn('slow');
         // リスト要素内に削除ボタン作成
         divAdd.append(divDelAdd);
         // リスト要素内に色変更ボタン作成
@@ -182,7 +182,7 @@ $(function () {
 
 
             // 追加の動き
-            outputEl.append(divAdd);
+            outputEl.append(divAdd).hide().fadeIn('slow');
             // リスト要素内に削除ボタン作成
             divAdd.append(divDelAdd);
             // リスト要素内に色変更ボタン作成
@@ -269,7 +269,7 @@ $(function () {
                 });
         
                 // 追加の動き
-                outputEl.append(divAdd);
+                outputEl.append(divAdd).hide().fadeIn('Slow');
                 // リスト要素内に削除ボタン作成
                 divAdd.append(divDelAdd);
                 // リスト要素内に色変更ボタン作成
@@ -290,7 +290,7 @@ $(function () {
 
 
     
-
+    
 
     // モーダルウィンドウを中央に配置する
     function modalResize() {

@@ -157,7 +157,50 @@ h1 {
     background: rgb(238, 148, 163);
     text-decoration: none;
     outline: none;
+    transition: 0.4s;
 }
+
+#limit-filter-btn:hover {
+    background: rgb(255, 232, 236);
+    color: rgb(238, 148, 163)
+}
+
+
+#all-filter-btn {
+    width: 120px;
+    height: 100px;
+    font-size: 20px;
+    border-radius: 50px 3px;
+    /* border: 1px dotted orangered; */
+    background: rgb(238, 148, 163);
+    text-decoration: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+#all-filter-btn:hover {
+    background: rgb(255, 232, 236);
+    color: rgb(238, 148, 163)
+}
+
+
+#plan-filter-btn {
+    width: 120px;
+    height: 100px;
+    font-size: 20px;
+    border-radius: 50px 3px;
+    /* border: 1px dotted orangered; */
+    background: rgb(238, 148, 163);
+    text-decoration: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+#plan-filter-btn:hover {
+    background: rgb(255, 232, 236);
+    color: rgb(238, 148, 163)
+}
+
 
 /* #todo-list {
     width: 50%;
