@@ -370,7 +370,6 @@ $(function () {
         }
         if (cntContEl.length === undefined) {
             speakEl.text('リストに何も入ってないよ〜');
-            // charaEl.children('img').attr('src', 'assets/sd05.png');
         }
 
 }); //--------------------------------------------------------------------------------
@@ -382,7 +381,6 @@ $(function () {
         contentBuild();
         if (cntContEl.length === undefined) {
             speakEl.text('リストに何も入ってないよ〜');
-            charaEl.children('img').attr('src', 'assets/sd05.png');
         }
         else {
             speakEl.text('フィルター解除！')
