@@ -6,12 +6,17 @@
 
 body {
     font-family: "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", 'メイリオ' , Meiryo , Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    height: 100vh;
+    background: linear-gradient(to bottom right, rgb(255, 213, 220), rgb(250, 163, 176) 40%, rgb(255, 107, 129));    
+
+
 }
 
 #main {
     /* width: 100vh; */
-    height: 100vh;
-    background: linear-gradient(to bottom right, rgb(255, 213, 220), rgb(250, 163, 176) 40%, rgb(255, 107, 129));    
+    height: auto;
+    min-height: 100%;
+    /* background: linear-gradient(to bottom right, rgb(255, 213, 220), rgb(250, 163, 176) 40%, rgb(255, 107, 129));     */
 }
 
 /* li {
@@ -22,6 +27,14 @@ h1 {
     text-align: center;
     color: white;
     background: rgb(238, 148, 163);
+}
+
+img {
+    position: absolute;
+    top: 190px;
+    left: 100px;
+    height: 420px;
+    width: 200px;
 }
 
 
@@ -239,13 +252,63 @@ h1 {
 }
 
 
+/* #main-content {
+    position: relative;
+} */
+
 #todo-list {
-    margin: 0 30px;
+    float: left;
+    width: calc(100% - 390px);
+    margin: 0 0 0 20px;
+    /* padding: 0 240px 0 0; */
+    /* margin-right: 260 */
+    /* background-color: aqua; */
+    box-sizing: border-box;
 } 
 
-/* #todo-list-limit {
-    width: 50%;
-}  */
+#character {
+    float: right;
+    width: 350px;
+    height: 140px;
+    margin: 0 20px 0 0;
+    background-color: white;
+    border: 1px solid black;
+    position: relative;
+    border-radius: 70px;
+    box-sizing: border-box;
+    z-index: 4;
+} 
+
+.hukidashi-1 {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 60px 80px 0;
+    border-color: transparent black transparent transparent;
+    position: absolute;
+    top: 138px;
+    left: 60px;
+}
+
+.hukidashi-2 {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 59px 80px 0;
+    border-color: transparent white transparent transparent;
+    position: absolute;
+    top: 136px;
+    left: 60px;
+}
+
+.talk-girl {
+    position: absolute;
+    font-size: 20px;
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
 
 
 .ToDo-content {

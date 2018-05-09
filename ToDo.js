@@ -3,6 +3,8 @@ $(function () {
     // ToDoリストの追加先
     const outputEl = $('#todo-list');
 
+    const speakEl = $('.talk-girl');
+
     // モーダル内要素取得 --------------------------------------------------------------
     // windowオブジェクト取得
     const $window = $(window);
@@ -72,6 +74,9 @@ $(function () {
         let nowTime = `${hour}:${min}`
         $('#date-inp').val(nowDate);
         $('#time-inp').val(nowTime);
+
+        speakEl.text('どんな用事があるの？')
+
 
 
     }); //--------------------------------------------------------------------------------
@@ -191,7 +196,7 @@ $(function () {
 
             $('#alert-wid').fadeIn('slow');
 
-            var syori = function syori() {
+            let syori = function syori() {
                 $('#alert-wid').fadeOut('slow');
             }
             setTimeout(syori, 2000);
@@ -199,6 +204,12 @@ $(function () {
             requireEl.val('');
 
             bgc();
+
+            speakEl.text('追加したよ〜！')
+            let resetTalk = function resetTalk() {
+                speakEl.text('他に何かある〜？');
+            } 
+            setTimeout(resetTalk, 3000);
         
         }
     }); //--------------------------------------------------------------------------------
@@ -284,6 +295,7 @@ $(function () {
             } else {
                 loadCnt += 1;
             }
+            speakEl.text('期限でフィルターをかけたよ！')
         }
     });
 
@@ -366,6 +378,7 @@ $(function () {
             } else {
                 loadCnt += 1;
             }
+            speakEl.text('予定でフィルターかけたよ！')
         }
 
     
@@ -376,6 +389,7 @@ $(function () {
         outputEl.empty();
         loadCnt = 1;
         contentBuild();
+        speakEl.text('フィルター解除！')
     }); //--------------------------------------------------------------------------------
 
 
