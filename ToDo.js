@@ -2,8 +2,10 @@ $(function () {
 
     // ToDoリストの追加先
     const outputEl = $('#todo-list');
+    const cntContEl = $('.ToDo-content').length
 
     const speakEl = $('.talk-girl');
+    const charaEl = $('#character');
 
     // モーダル内要素取得 --------------------------------------------------------------
     // windowオブジェクト取得
@@ -122,11 +124,7 @@ $(function () {
             const divDelAdd = $('<button class="ToDo-content-del">');
             divDelAdd.text('Delete');
             divDelAdd.on('click', () => {            
-                // 押された削除ボタンの同階層のpタグテキストの入手
-                // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
                 let delName = divDelAdd.prev().prev().text();
-                // let delRadio = divDelAdd.prev().text();
-                // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
     
                 var arraySearch = allList.findIndex(({name}) => name === delName);
                 // console.log(arraySearch);
@@ -205,9 +203,11 @@ $(function () {
 
             bgc();
 
-            speakEl.text('追加したよ〜！')
+            speakEl.text('追加したよ〜！');
+            charaEl.children('img').attr('src', 'assets/sd_eye2.png');
             let resetTalk = function resetTalk() {
                 speakEl.text('他に何かある〜？');
+                charaEl.children('img').attr('src', 'assets/sd_eye0.png');
             } 
             setTimeout(resetTalk, 3000);
         
@@ -222,7 +222,6 @@ $(function () {
         colorNum = 0;
         loadCnt = 1;
         for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
-            // console.log(allList);
             addColorRgb = Math.floor(153/allList.length)
             colorVessel = 76+(addColorRgb*loadCnt)
             colorRgb = `rgb( 255, ${colorVessel}, ${colorVessel} )`
@@ -239,16 +238,10 @@ $(function () {
                 const divDelAdd = $('<button class="ToDo-content-del">');
                 divDelAdd.text('Delete');
                 divDelAdd.on('click', () => {
-                    // 押された削除ボタンの同階層のpタグテキストの入手
-                    // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
                     let delName = divDelAdd.prev().prev().text();
-                    // let delRadio = divDelAdd.prev().text();
-                    // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
         
                     var arraySearch = allList.findIndex(({name}) => name === delName);
-                    // console.log(arraySearch);
                     allList.splice(arraySearch, 1);
-                    // console.log(allList);
                     divDelAdd.parent().remove();
 
                     // ローカルストレージに保存
@@ -265,7 +258,6 @@ $(function () {
                     bgc();
                     let ccName = divCCAdd.prev().prev().prev().text();
                     var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                    // console.log(ccArraySearch);
                     let waitObj = {
                         nTime: allList[ccArraySearch].nTime,
                         name: allList[ccArraySearch].name,
@@ -295,8 +287,12 @@ $(function () {
             } else {
                 loadCnt += 1;
             }
-            speakEl.text('期限でフィルターをかけたよ！')
+            speakEl.text('期限でフィルターをかけたよ！');
         }
+        if (cntContEl.length === undefined) {
+            speakEl.text('リストに何も入ってないよ〜');
+        }
+
     });
 
     // 予定フィルター
@@ -305,7 +301,6 @@ $(function () {
         colorNum = 0;
         loadCnt = 1;
         for (let cnt = 0, len = allList.length; cnt < len; cnt++) {
-            // console.log(allList);
             addColorRgb = Math.floor(153/allList.length)
             colorVessel = 76+(addColorRgb*loadCnt)
             colorRgb = `rgb( 255, ${colorVessel}, ${colorVessel} )`
@@ -322,16 +317,10 @@ $(function () {
                 const divDelAdd = $('<button class="ToDo-content-del">');
                 divDelAdd.text('Delete');
                 divDelAdd.on('click', () => {
-                    // 押された削除ボタンの同階層のpタグテキストの入手
-                    // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
                     let delName = divDelAdd.prev().prev().text();
-                    // let delRadio = divDelAdd.prev().text();
-                    // let delItem = `{time: "${delTime}", name: "${delName}", radio: "${delRadio}"}`;
         
                     var arraySearch = allList.findIndex(({name}) => name === delName);
-                    // console.log(arraySearch);
                     allList.splice(arraySearch, 1);
-                    // console.log(allList);
                     divDelAdd.parent().remove();
 
                     // ローカルストレージに保存
@@ -348,7 +337,6 @@ $(function () {
                     bgc();
                     let ccName = divCCAdd.prev().prev().prev().text();
                     var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                    // console.log(ccArraySearch);
                     let waitObj = {
                         nTime: allList[ccArraySearch].nTime,
                         name: allList[ccArraySearch].name,
@@ -380,16 +368,25 @@ $(function () {
             }
             speakEl.text('予定でフィルターかけたよ！')
         }
+        if (cntContEl.length === undefined) {
+            speakEl.text('リストに何も入ってないよ〜');
+            // charaEl.children('img').attr('src', 'assets/sd05.png');
+        }
 
-    
-    }); //--------------------------------------------------------------------------------
+}); //--------------------------------------------------------------------------------
 
     // 全表示、フィルター解除
     $('#all-filter-btn').on('click', () => {
         outputEl.empty();
         loadCnt = 1;
         contentBuild();
-        speakEl.text('フィルター解除！')
+        if (cntContEl.length === undefined) {
+            speakEl.text('リストに何も入ってないよ〜');
+            charaEl.children('img').attr('src', 'assets/sd05.png');
+        }
+        else {
+            speakEl.text('フィルター解除！')
+        }        
     }); //--------------------------------------------------------------------------------
 
 
@@ -406,9 +403,6 @@ $(function () {
             const divAdd = $('<div class="ToDo-content">');
             divAdd.html(`<p id="c-time" class="c-time-${loadCnt}">${allList[cnt].nTime} 追加</p><p class="c-name-${loadCnt}">${allList[cnt].name}</p><p class="c-radio-${loadCnt}">${allList[cnt].radio}：${allList[cnt].rDate} ${allList[cnt].rTime}</p>`);
             divAdd.css({ background: colorRgb });
-            // console.log(colorVessel);
-            // console.log(addColorRgb);
-            // console.log(loadCnt);
             if (allList[cnt].bgc !== '') {
                 divAdd.css({ background: allList[cnt].bgc }); 
             }
@@ -416,15 +410,10 @@ $(function () {
             const divDelAdd = $('<button class="ToDo-content-del">');
             divDelAdd.text('Delete');
             divDelAdd.on('click', () => {
-                // 押された削除ボタンの同階層のpタグテキストの入手
-                // let delTime = divDelAdd.prev().prev().prev().text().substr(4);
                 let delName = divDelAdd.prev().prev().text();
-                // let delRadio = divDelAdd.prev().text();
 
                 var arraySearch = allList.findIndex(({name}) => name === delName);
-                // console.log(arraySearch);
                 allList.splice(arraySearch, 1);
-                // console.log(allList);
                 divDelAdd.parent().remove();
 
                 // ローカルストレージに保存
@@ -440,7 +429,6 @@ $(function () {
                 bgc();
                 let ccName = divCCAdd.prev().prev().prev().text();
                 var ccArraySearch = allList.findIndex(({name}) => name === ccName);
-                // console.log(ccArraySearch);
                 let waitObj = {
                     nTime: allList[ccArraySearch].nTime,
                     name: allList[ccArraySearch].name,
